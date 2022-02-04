@@ -34,8 +34,8 @@ while experiment_number < total_experiments:
     dataList[experiment_number-1, 2:] = data
 #df = pd.DataFrame(dataList)
 #plt.clf()
-plt.plot(data,"+")
-
+plt.plot(dataList[:][10],"+")
+plt.show()
 #
 #def window(size):
 #    return np.ones(size)/float(size)
