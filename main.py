@@ -7,6 +7,7 @@ Created on Wed Feb  5 22:31:27 2022
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.signal import savgol_filter
 
 import constants
 from classifier_cluster import classifier_cluster
@@ -22,9 +23,6 @@ obstacle_data_all_cases = np.array((constants.TOTAL_EXPERIMENTS, constants.READI
 df = pd.read_csv(fileName)
 obstacle_data_all_cases = df.iloc[:, 4:]
 
-from scipy.signal import savgol_filter
-#obstacle_data = savgol_filter(obstacle_data, 25, 4)
-
 raw_results = np.zeros((constants.TOTAL_EXPERIMENTS, 6))
 
 i = 0
@@ -35,28 +33,27 @@ while i < constants.TOTAL_EXPERIMENTS:
     speed = df.iloc[i, 3]
 
     ##### Process the current obstacle data array here #########
-    if( i < 276):
-        i += 1
-        continue
+    # if( i < 276):
+    #     i += 1
+    #     continue
     #obstacle_data_current = butterworth_filtering(obstacle_data_current, 3, 0.1)
     
-    zeroed_handled = filter_zero_reading(obstacle_data_current)
-    zeroed_handled = savgol_filter(zeroed_handled, 45, 2)
+    obstacle_data_current = adjust_zero_reading(obstacle_data_current)
+    filtered = savgol_filter(obstacle_data_current, 45, 2)
     
     #plot_original_vs_filtered_data(obstacle_data_current, zeroed_handled)
     #plt.plot(obstacle_data_current, "+")
-    plt.plot(zeroed_handled, ".")
-    plt.show()
+    #plt.plot(filtered, ".")
+    #plt.show()
     #exit()
-    obstacle_data_current = zeroed_handled
+    obstacle_data_current = filtered
     ######## Processing complete       #########
 
     detectedHt = classifier_cluster(obstacle_data_current)
     detectedHt = int(detectedHt)
-    print(detectedHt)
+    #print(detectedHt)
     detectedClass = findNearestClass(detectedHt)
-    print("i = " + str(i+1) + "found = " + str(detectedClass) + " true = " + str(true_class))
-    exit()
+    #print("i = " + str(i+1) + "found = " + str(detectedClass) + " true = " + str(true_class))
     #print("Ht. found = " + str(detectedHt) + ", and class found = " + str(detectedClass) + ", True class = " + str(true_class))
     raw_results[i, 0] = i + 1
     raw_results[i, 1] = speed

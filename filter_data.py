@@ -19,7 +19,7 @@ def savgol_filtering(input_signal, window_size = 9, poly_order = 2):
     filtered_signal = savgol_filter(input_signal, window_size, poly_order)
     return filtered_signal
 
-def filter_zero_reading(original):
+def adjust_zero_reading(original):
     filtered = original.copy()
     for i in range(0, len(original)):
         if(int(original[i]) == 0):
