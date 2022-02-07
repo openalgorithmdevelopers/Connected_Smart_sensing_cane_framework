@@ -33,6 +33,15 @@ def classifier_cluster(obstacle_data):
     #plt.plot(obstacle_data, ".", color="blue")
     clusters, centroids = kmeans1d.cluster(obstacle_data, 2)
 
-    idendifiedObstacleHt = abs(centroids[0] - centroids[1])
-    return idendifiedObstacleHt
+    # ######## Handle if zero readings turns out to be one cluster
+    # if(int(centroids[0]) == 0):
+    #     centroids[0] = centroids[1]
+    # if(int(centroids[1]) == 0):
+    #     centroids[1] = centroids[0]
+    # ########################################################
+
+    identifiedObstacleHt = abs(centroids[0] - centroids[1])
+    print(centroids)
     #plotClusters(obstacle_data=obstacle_data, clusters=clusters)
+    return identifiedObstacleHt
+    
