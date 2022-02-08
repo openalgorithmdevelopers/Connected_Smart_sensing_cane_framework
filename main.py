@@ -27,7 +27,7 @@ raw_results = np.zeros((constants.TOTAL_EXPERIMENTS, 6))
 
 i = 0
 while i < constants.TOTAL_EXPERIMENTS:
-#while i < 1:
+# while i < 2:
     obstacle_data_current = df.iloc[i, 4:]
     true_class = int(df.iloc[i, 2])
     speed = df.iloc[i, 3]
@@ -37,21 +37,24 @@ while i < constants.TOTAL_EXPERIMENTS:
     #     i += 1
     #     continue
     #obstacle_data_current = butterworth_filtering(obstacle_data_current, 3, 0.1)
+    obstacle_data_current = obstacle_data_current.tolist()
+    obstacle_data_current = [x for x in obstacle_data_current if x != 0]
+    obstacle_data_current = np.array(obstacle_data_current)
+
+    zeroed_handled = adjust_zero_reading(obstacle_data_current)
+    filtered = savgol_filter(obstacle_data_current, 45, 2)
     
-    obstacle_data_current = adjust_zero_reading(obstacle_data_current)
-    # filtered = savgol_filter(obstacle_data_current, 45, 2)
-    
-    # #plot_original_vs_filtered_data(obstacle_data_current, zeroed_handled)
+    # plot_original_vs_filtered_data(obstacle_data_current, zeroed_handled)
     # #plt.plot(obstacle_data_current, "+")
     # #plt.plot(filtered, ".")
-    # #plt.show()
+    # plt.show()
     # #exit()
     # obstacle_data_current = filtered
     ######## Processing complete       #########
 
     detectedHt = classifier_cluster(obstacle_data_current)
     detectedHt = int(detectedHt)
-    #print(detectedHt)
+    print(detectedHt)
     detectedClass = findNearestClass(detectedHt)
     print("i = " + str(i+1) + "found = " + str(detectedClass) + " true = " + str(true_class))
     #print("Ht. found = " + str(detectedHt) + ", and class found = " + str(detectedClass) + ", True class = " + str(true_class))

@@ -10,8 +10,8 @@ import numpy as np
 
 import constants
 
-#df = pd.read_csv(constants.ORIGINAL_DATASET_FILE_NAME)
-df = pd.read_csv(constants.SIMULATED_DATASET_FILE_NAME)
+df = pd.read_csv(constants.ORIGINAL_DATASET_FILE_NAME)
+#df = pd.read_csv(constants.SIMULATED_DATASET_FILE_NAME)
 
 experiment_number = 1
 index = experiment_number
