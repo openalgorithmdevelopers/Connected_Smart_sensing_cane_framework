@@ -39,21 +39,21 @@ while i < constants.TOTAL_EXPERIMENTS:
     #obstacle_data_current = butterworth_filtering(obstacle_data_current, 3, 0.1)
     
     obstacle_data_current = adjust_zero_reading(obstacle_data_current)
-    filtered = savgol_filter(obstacle_data_current, 45, 2)
+    # filtered = savgol_filter(obstacle_data_current, 45, 2)
     
-    #plot_original_vs_filtered_data(obstacle_data_current, zeroed_handled)
-    #plt.plot(obstacle_data_current, "+")
-    #plt.plot(filtered, ".")
-    #plt.show()
-    #exit()
-    obstacle_data_current = filtered
+    # #plot_original_vs_filtered_data(obstacle_data_current, zeroed_handled)
+    # #plt.plot(obstacle_data_current, "+")
+    # #plt.plot(filtered, ".")
+    # #plt.show()
+    # #exit()
+    # obstacle_data_current = filtered
     ######## Processing complete       #########
 
     detectedHt = classifier_cluster(obstacle_data_current)
     detectedHt = int(detectedHt)
     #print(detectedHt)
     detectedClass = findNearestClass(detectedHt)
-    #print("i = " + str(i+1) + "found = " + str(detectedClass) + " true = " + str(true_class))
+    print("i = " + str(i+1) + "found = " + str(detectedClass) + " true = " + str(true_class))
     #print("Ht. found = " + str(detectedHt) + ", and class found = " + str(detectedClass) + ", True class = " + str(true_class))
     raw_results[i, 0] = i + 1
     raw_results[i, 1] = speed
@@ -77,7 +77,7 @@ column_names.append('Detected Class')
 column_names.append('Classification Result') 
 
 df = pd.DataFrame(raw_results, columns = column_names)
-print(len(column_names))
+#print(len(column_names))
 
 df.to_csv(constants.RESULTS_FOLDER + '/raw_results.csv', index=False)
 

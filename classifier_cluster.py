@@ -22,8 +22,8 @@ def classifier_cluster(obstacle_data):
 
     ####### Handle the case for tiny size cluster
     count_arr = np.bincount(clusters)
-    print('Cluster 0 = ', count_arr[0])
-    print('Cluster 1 = ', count_arr[1])
+    # print('Cluster 0 = ', count_arr[0])
+    # print('Cluster 1 = ', count_arr[1])
     if(count_arr[0] < constants.CLUSTER_MIN_SIZE):
         return 0    #As cluster too is tiny, means insignificant ht. of obstacle
     if(count_arr[1] < constants.CLUSTER_MIN_SIZE):
@@ -32,7 +32,7 @@ def classifier_cluster(obstacle_data):
     #####################
 
     identifiedObstacleHt = abs(centroids[0] - centroids[1])
-    print(centroids)
+    # print(centroids)
     #plotClusters(obstacle_data=obstacle_data, clusters=clusters)
     return identifiedObstacleHt
 

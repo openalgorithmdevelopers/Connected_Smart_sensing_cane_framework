@@ -24,5 +24,6 @@ SENSOR_TESTED_OBSERVED_MAX = 94
 SENSOR_TESTED_OBSERVED_MIN = 45
 
 ORIGINAL_DATASET_FILE_NAME = 'VI_mannual_test_dataset.csv'
+SIMULATED_DATASET_FILE_NAME = 'VI_simulated_test_dataset.csv'
 DATA_SET_FOLDER = "./dataset"
 RESULTS_FOLDER = "./results"
